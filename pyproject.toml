@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "tex-build"
+version = "0.1.0"
+description = "Compile latex and clean up the extra files"
+authors = ["jmg049 <jgeraghty049@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+tex-build = "tex_build.tex_build:main"
