@@ -1,15 +1,21 @@
 from __future__ import annotations
+
+import os
+import platform
 from argparse import ArgumentParser, Namespace
 from enum import Enum, auto
-import os
 from pathlib import Path
-from typing import Any, Dict, List, Literal, Optional
 from subprocess import run
-import platform
+from typing import Any, Dict, List, Literal, Optional
 
-FILE_TYPES_TO_CLEAN: List[
-    Literal["aux", "log", "toc", "blg", "bbl", "fdb_latexmk"]
-] = ["aux", "log", "toc", "blg", "bbl", "fdb_latexmk"]
+FILE_TYPES_TO_CLEAN: List[Literal["aux", "log", "toc", "blg", "bbl", "fdb_latexmk"]] = [
+    "aux",
+    "log",
+    "toc",
+    "blg",
+    "bbl",
+    "fdb_latexmk",
+]
 
 
 class OutputMethod(Enum):
@@ -47,8 +53,12 @@ def parse_args() -> Namespace:
         default="move",
         help="Output method",
     )
-    parser.add_argument("--output-dir", type=str, help="Output directory", default="./.tex_out")
-    parser.add_argument("--open", action="store_true", help="Open the output PDF.", default=False)
+    parser.add_argument(
+        "--output-dir", type=str, help="Output directory", default="./.tex_out"
+    )
+    parser.add_argument(
+        "--open", action="store_true", help="Open the output PDF.", default=False
+    )
     return parser.parse_args()
 
 
@@ -64,9 +74,7 @@ def build(
         print(f"Error building {input_file_path}")
         return
 
-    files = [
-        Path(f) for f in os.listdir() if f.endswith(tuple(FILE_TYPES_TO_CLEAN))
-    ]
+    files = [Path(f) for f in os.listdir() if f.endswith(tuple(FILE_TYPES_TO_CLEAN))]
 
     if output_method == OutputMethod.DELETE:
         for file in files:
